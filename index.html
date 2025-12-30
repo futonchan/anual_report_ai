@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>年間振り返りレポート</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Annual Flash</div>
+    <div class="nav-steps">
+      <button class="ghost small active" data-view-target="ingest">1. データ整理</button>
+      <button class="ghost small" data-view-target="report">2. レポート＆画像</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div id="viewIngest">
+      <section class="card hero-card" id="dropZone">
+        <div class="hero-inner">
+          <div>
+            <h1>ドロップ1回で年間レポート</h1>
+            <p class="sub">CSVを置くだけで不要明細をマークし、Geminiで振り返りと画像生成まで。</p>
+          </div>
+          <div class="input-row">
+            <label class="field">
+              <span>Gemini APIキー</span>
+              <input id="apiKey" type="password" placeholder="AI Studioで取得したAPIキー" autocomplete="off">
+            </label>
+            <div class="cta-row">
+              <button class="ghost" data-view-target="report">レポート画面へ</button>
+            </div>
+          </div>
+          <div class="drop-area">
+            <p class="drop-title">CSVをドロップ</p>
+            <p class="drop-sub">またはクリックして選択</p>
+            <label class="upload-btn">
+              ファイルを選択
+              <input id="csvFile" type="file" accept=".csv" aria-label="CSV file">
+            </label>
+          </div>
+          <div id="status" class="status"></div>
+        </div>
+      </section>
+
+      <section class="card compact">
+        <div class="panel-head">
+          <h2>データプレビュー</h2>
+          <button id="togglePreview" class="ghost small">もっと見る</button>
+        </div>
+        <div id="previewTable" class="table"></div>
+      </section>
+
+      <section class="card compact">
+        <div class="panel-head">
+          <h2>除外候補</h2>
+          <div class="chip-row">
+            <span id="flaggedSummary" class="chip muted">未集計</span>
+            <button id="toggleFlagged" class="ghost small">展開</button>
+          </div>
+        </div>
+        <p class="hint">ルールマッチのみ表示。チェックONで除外。</p>
+        <div id="flaggedInfo" class="status"></div>
+        <div id="flaggedList" class="flag-list"></div>
+      </section>
+    </div>
+
+    <div id="viewReport" class="hidden">
+      <section class="card wide">
+        <div class="panel-head">
+          <h2>レポート生成</h2>
+          <div class="actions">
+            <button id="reportBtn">Geminiでテキスト生成</button>
+            <button id="imageBtn" class="ghost">画像生成</button>
+          </div>
+        </div>
+        <div id="reportStatus" class="status"></div>
+        <div id="reportView" class="report"></div>
+        <div class="hidden">
+          <div id="monthChart"></div>
+          <div id="categoryPie"></div>
+        </div>
+      </section>
+
+      <section class="card wide">
+        <h2>画像生成（任意）</h2>
+        <div class="actions">
+          <button id="imageBtn2">画像を生成</button>
+        </div>
+        <div id="imageView" class="image-view">
+          <div id="imageContainer"></div>
+          <div id="imageActions" class="actions"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

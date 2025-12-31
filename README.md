@@ -1,6 +1,8 @@
 # 年間振り返りレポート MVP
 Gemini Developer API をブラウザから直接呼び出して、CSVから年間レポート（テキスト＋任意で画像）を生成する静的HTMLアプリです。依存はほぼゼロで、Nodeはローカルサーバ起動にのみ使います。入力するCSVはMoneyforwardアプリから取得できる「収入・支出詳細_<年>」ファイルを想定しています。
 
+![サンプル動画](https://github.com/user-attachments/assets/fd168446-1cdf-468a-9713-99b9406a010f)
+
 ## ファイル構成
 - `index.html` UI本体（APIキー入力・CSVアップロード・ボタン類）
 - `app.js` ロジック（CSV正規化→集計→Gemini呼び出し→描画）

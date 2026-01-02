@@ -34,6 +34,8 @@ let showAllFlagged = false;
 let previewFileOverride = null;
 let currentView = "ingest";
 const quarterExpandedState = {};
+const HOWTO_IMAGES = ["images/gemini_apikey_1.png", "images/gemini_apikey_2.png", "images/gemini_apikey_3.png"];
+let howToIndex = 0;
 
 const els = {
   apiKey: document.getElementById("apiKey"),
@@ -58,6 +60,15 @@ const els = {
   navButtons: document.querySelectorAll(".nav-steps [data-view-target]"),
   progressDots: document.getElementById("progressDots"),
   flaggedSummary: document.getElementById("flaggedSummary"),
+  lightbox: document.getElementById("lightbox"),
+  lightboxImg: document.getElementById("lightbox-img"),
+  lightboxClose: document.querySelector(".lightbox-close"),
+  lightboxPrev: document.querySelector(".lightbox-nav.prev"),
+  lightboxNext: document.querySelector(".lightbox-nav.next"),
+  lightboxBackdrop: document.querySelector(".lightbox-backdrop"),
+  howToGemini: document.getElementById("howToGemini"),
+  lightboxStep: document.getElementById("lightbox-step"),
+  lightboxLink: document.getElementById("lightbox-link"),
 };
 
 function setStatus(message, type = "") {
@@ -86,6 +97,27 @@ function disableButtons(disabled) {
   els.reportBtn.disabled = disabled;
   els.imageBtn.disabled = disabled;
   if (els.imageBtn2) els.imageBtn2.disabled = disabled;
+}
+
+function showLightbox(idx = 0) {
+  if (!els.lightbox || !els.lightboxImg) return;
+  howToIndex = ((idx % HOWTO_IMAGES.length) + HOWTO_IMAGES.length) % HOWTO_IMAGES.length;
+  els.lightboxImg.src = HOWTO_IMAGES[howToIndex];
+  if (els.lightboxStep) {
+    els.lightboxStep.textContent = `手順 ${howToIndex + 1}/${HOWTO_IMAGES.length}`;
+  }
+  els.lightbox.classList.remove("hidden");
+  els.lightbox.setAttribute("aria-hidden", "false");
+}
+
+function hideLightbox() {
+  if (!els.lightbox) return;
+  els.lightbox.classList.add("hidden");
+  els.lightbox.setAttribute("aria-hidden", "true");
+}
+
+function stepLightbox(delta) {
+  showLightbox(howToIndex + delta);
 }
 
 function getMappedValue(row, key) {
@@ -920,6 +952,15 @@ function init() {
       renderFlaggedList();
     });
   }
+
+  // ライトボックス（Geminiキー取得手順）
+  if (els.howToGemini) {
+    els.howToGemini.addEventListener("click", () => showLightbox(0));
+  }
+  if (els.lightboxClose) els.lightboxClose.addEventListener("click", hideLightbox);
+  if (els.lightboxPrev) els.lightboxPrev.addEventListener("click", () => stepLightbox(-1));
+  if (els.lightboxNext) els.lightboxNext.addEventListener("click", () => stepLightbox(1));
+  if (els.lightboxBackdrop) els.lightboxBackdrop.addEventListener("click", hideLightbox);
 }
 
 document.addEventListener("DOMContentLoaded", init);

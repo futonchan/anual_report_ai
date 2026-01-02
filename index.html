@@ -23,11 +23,12 @@
         <div class="hero-inner">
           <div>
             <h1>ドロップ1回で年間レポート</h1>
-            <p class="sub">CSVを置くだけで不要明細をマークし、Geminiで振り返りと画像生成まで。</p>
+            <p class="sub">CSVを置くだけで不要明細をマークし、AIが1年の振り返りと画像生成まで。</p>
+            <p class="sub">入力されたAPIキーはサーバーなど外部へ保存せず、ブラウザ内でのみ利用されます。</p>
           </div>
           <div class="input-row">
             <label class="field">
-              <span>Gemini APIキー （<a href="https://ai.google.dev/gemini-api/docs/api-key?hl=ja" target="_blank">取得方法</a>）</span>
+              <span>Gemini APIキー （<button id="howToGemini" class="link-btn">取得方法</button>）</span>
               <input id="apiKey" type="password" placeholder="AI Studioで取得したAPIキー" autocomplete="off">
             </label>
             <div class="cta-row">
@@ -36,7 +37,7 @@
           </div>
           <div class="drop-area">
             <p class="drop-title">CSVをドロップ</p>
-            <p class="drop-sub">対応形式：Moneyforward 家計簿 収入・支出詳細_年.csv（<a href="https://support.me.moneyforward.com/hc/ja/articles/49505374073497-%E5%AE%B6%E8%A8%88%E7%B0%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AF%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B" target="_blank">取得方法</a>）</p>
+            <p class="drop-sub">対応形式：Moneyforward 家計簿 収入・支出詳細_年.csv（<a href="https://support.me.moneyforward.com/hc/ja/articles/49505374073497-%E5%AE%B6%E8%A8%88%E7%B0%BF%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AF%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A7%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B#h_01JQTS4TQ38XMCS1E28YGC4RNK" target="_blank">取得方法</a>）</p>
             <p class="drop-sub">またはクリックして選択</p>
             <label class="upload-btn">
               ファイルを選択
@@ -98,5 +99,21 @@
       </section>
     </div>
   </main>
+
+  <div id="lightbox" class="lightbox hidden" aria-hidden="true">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-body" role="dialog" aria-label="Gemini APIキー取得手順">
+      <button class="lightbox-close" aria-label="閉じる">×</button>
+      <button class="lightbox-nav prev" aria-label="前へ">←</button>
+      <div class="lightbox-media">
+        <img id="lightbox-img" alt="Gemini APIキー取得手順">
+        <p class="lightbox-caption">
+          <span id="lightbox-step">手順 1/3</span> ・
+          <a id="lightbox-link" href="https://ai.google.dev/gemini-api/docs/api-key?hl=ja" target="_blank" rel="noopener noreferrer">公式リファレンス</a>
+        </p>
+      </div>
+      <button class="lightbox-nav next" aria-label="次へ">→</button>
+    </div>
+  </div>
 </body>
 </html>

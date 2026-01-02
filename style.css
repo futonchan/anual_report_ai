@@ -115,6 +115,16 @@ body {
   margin: 0;
 }
 
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #0f62fe;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
+}
+
 .drop-sub {
   margin: 4px 0 12px;
   color: #5c6575;
@@ -170,7 +180,7 @@ body {
 .field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 12px;
+  margin: 0;
   gap: 4px;
 }
 
@@ -549,6 +559,72 @@ td {
 
 .hidden {
   display: none;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-body {
+  position: relative;
+  background: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+}
+
+.lightbox img {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+}
+
+.lightbox-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.lightbox-close,
+.lightbox-nav {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.lightbox-nav {
+  font-size: 18px;
+}
+
+.lightbox-caption {
+  margin: 0;
+  font-size: 13px;
+  color: #3d4c63;
 }
 
 @media (max-width: 720px) {

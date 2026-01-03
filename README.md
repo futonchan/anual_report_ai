@@ -47,3 +47,52 @@ APIキーは `x-goog-api-key` ヘッダに設定し、永続保存しません�
 ## メモ
 - 集計結果をローカルで計算してから Gemini に渡すため、API に生データを送らず安全です。
 - レスポンスがJSON以外を返す場合に備え、JSON抽出のフォールバックを実装しています。
+
+### Lightbox（オーバーレイ）の使い方メモ
+・転用手順（最小構成）
+
+１.HTMLに枠を置く
+```
+<div id="lightbox" class="lightbox hidden" aria-hidden="true">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-body" role="dialog" aria-label="Lightbox">
+    <button class="lightbox-close" aria-label="閉じる">×</button>
+    <button class="lightbox-nav prev" aria-label="前へ">←</button>
+    <div class="lightbox-media">
+      <img id="lightbox-img" alt="">
+      <p class="lightbox-caption"><span id="lightbox-step"></span></p>
+    </div>
+    <button class="lightbox-nav next" aria-label="次へ">→</button>
+  </div>
+</div>
+<button id="openLightbox">開く</button>
+```
+ID/class 名は現行のまま使うとそのまま流用可。必要なら id を任意に変えて後述の init 引数も合わせる。
+
+２. CSSを取り込む
+style.css の .lightbox... セクションを流用（ホバーやレスポンシブ含む）。既存CSSに追記するだけでOK。
+JSを組み込む
+```
+import { initLightbox } from "./lightbox.js";
+
+const lightbox = initLightbox({
+  els: {
+    container: document.getElementById("lightbox"),
+    img: document.getElementById("lightbox-img"),
+    close: document.querySelector(".lightbox-close"),
+    prev: document.querySelector(".lightbox-nav.prev"),
+    next: document.querySelector(".lightbox-nav.next"),
+    backdrop: document.querySelector(".lightbox-backdrop"),
+    step: document.getElementById("lightbox-step"), // 任意
+  },
+  images: ["images/step1.png", "images/step2.png", "images/step3.png"],
+});
+```
+// 開くトリガー
+`document.getElementById("openLightbox").addEventListener("click", () => lightbox.show(0));
+images` を使いたい画像配列に差し替え。
+step 要素を渡さなければ手順表示は省略される。
+実行環境
+type="module" でスクリプトを読み込む（ESM importが必要）。
+外部依存なし。fetch不要。
+これで他のサイトでも、画像配列とトリガーを差し替えるだけで同じオーバーレイ部品を使い回せます。
